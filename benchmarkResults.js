@@ -145,10 +145,6 @@ var benchmarkResults = {
     properties : [ "binary" ],
     results : [ 88, 8895, 8133, 17028, 932, 582 ]
   }, {
-    name : "json/argo/manual-tree",
-    properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 87, 83298, 19792, 103090, 485, 263 ]
-  }, {
     name : "json-col/jackson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
     results : [ 88, 1814, 2167, 3981, 293, 178 ]
@@ -174,7 +170,7 @@ var benchmarkResults = {
     results : [ 86, 6746, 7426, 14172, 485, 259 ]
   }, {
     name : "json/jackson+afterburner/databind",
-    properties : [ "binary", "fast" ],
+    properties : [ "binary" ],
     results : [ 87, 1840, 2551, 4391, 485, 261 ]
   }, {
     name : "json/jackson/databind",
@@ -197,16 +193,8 @@ var benchmarkResults = {
     properties : [ "neutral", "text", "json", "slow" ],
     results : [ 1742, 12389, 16522, 28911, 485, 263 ]
   }, {
-    name : "json/jsonij/manual-jpath",
-    properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 87, 46917, 17355, 64271, 478, 259 ]
-  }, {
-    name : "json/json-lib/databind",
-    properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 89, 33565, 154246, 187811, 485, 263 ]
-  }, {
     name : "json/json.simple/manual",
-    properties : [ "neutral", "text", "json" ],
+    properties : [ "neutral", "text", "json", "slow" ],
     results : [ 87, 7342, 11076, 18418, 495, 269 ]
   }, {
     name : "json/json-smart/manual-tree",
@@ -217,16 +205,12 @@ var benchmarkResults = {
     properties : [ "neutral", "text", "json", "slow" ],
     results : [ 89, 8615, 11171, 19786, 485, 259 ]
   }, {
-    name : "json/protobuf",
-    properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 185, 11409, 76335, 87744, 488, 253 ]
-  }, {
     name : "json/protostuff-manual",
     properties : [ "neutral", "text", "json", "fast" ],
     results : [ 88, 1796, 2495, 4292, 449, 233 ]
   }, {
     name : "json/protostuff-runtime",
-    properties : [ "neutral", "text", "json", "fast" ],
+    properties : [ "neutral", "text", "json" ],
     results : [ 89, 2118, 2749, 4866, 469, 243 ]
   }, {
     name : "json/svenson/databind",
@@ -346,7 +330,7 @@ var benchmarkResults = {
     results : [ 88, 3637, 6860, 10497, 683, 286 ]
   }, {
     name : "xml/javolution/manual",
-    properties : [ "neutral", "text", "xml" ],
+    properties : [ "neutral", "text", "xml", "slow" ],
     results : [ 87, 7035, 10966, 18001, 504, 263 ]
   }, {
     name : "xml/woodstox-manual",
@@ -354,7 +338,7 @@ var benchmarkResults = {
     results : [ 87, 3927, 6340, 10267, 653, 304 ]
   }, {
     name : "xml/xstream+c-aalto",
-    properties : [ "neutral", "text", "xml" ],
+    properties : [ "neutral", "text", "xml", "slow" ],
     results : [ 87, 5971, 13062, 19032, 525, 273 ]
   }, {
     name : "xml/xstream+c-fastinfo",
