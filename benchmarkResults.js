@@ -57,172 +57,320 @@ var benchmarkResults = {
   } ],
   columns : [ "create", "ser", "deser", "total", "size", "size-gz" ],
   entries : [ {
+    name : "avro-generic",
+    properties : [ "neutral", "binary", "fast" ],
+    results : [ 496, 2436, 1546, 3982, 221, 133 ]
+  }, {
     name : "avro-specific",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 124, 2154, 1923, 4077, 221, 133 ]
+    results : [ 123, 2105, 1894, 3999, 221, 133 ]
+  }, {
+    name : "bson/jackson/databind",
+    properties : [ "neutral", "binary" ],
+    results : [ 87, 6777, 8448, 15225, 506, 286 ]
   }, {
     name : "bson/mongodb/manual",
     properties : [ "neutral", "binary" ],
-    results : [ 90, 4498, 10776, 15274, 495, 278 ]
+    results : [ 89, 4459, 10444, 14904, 495, 278 ]
+  }, {
+    name : "cbor-col/jackson/databind",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 88, 1200, 1938, 3138, 251, 165 ]
   }, {
     name : "cbor/jackson+afterburner/databind",
     properties : [ "binary", "fast" ],
-    results : [ 87, 1404, 2147, 3551, 397, 246 ]
+    results : [ 90, 1376, 2148, 3524, 397, 246 ]
+  }, {
+    name : "cbor/jackson/databind",
+    properties : [ "neutral", "binary", "fast" ],
+    results : [ 87, 1645, 2728, 4373, 397, 246 ]
   }, {
     name : "cbor/jackson/manual",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 90, 1112, 1723, 2835, 386, 238 ]
+    results : [ 88, 1106, 1707, 2813, 386, 238 ]
   }, {
     name : "dsl-platform",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 130, 1337, 1508, 2844, 2048, 246 ]
+    results : [ 96, 1356, 1519, 2874, 437, 233 ]
   }, {
     name : "fst-flat-pre",
     properties : [ "binary", "fast" ],
-    results : [ 88, 906, 997, 1903, 251, 165 ]
+    results : [ 88, 891, 988, 1879, 251, 165 ]
   }, {
     name : "fst-flat",
     properties : [ "binary", "fast" ],
-    results : [ 87, 1238, 1527, 2765, 314, 204 ]
+    results : [ 86, 1208, 1495, 2703, 314, 204 ]
   }, {
     name : "fst",
     properties : [ "binary", "fast" ],
-    results : [ 89, 2095, 1968, 4064, 316, 203 ]
+    results : [ 87, 2135, 1961, 4095, 316, 203 ]
+  }, {
+    name : "hessian",
+    properties : [ "neutral", "binary" ],
+    results : [ 89, 4905, 7387, 12292, 501, 313 ]
   }, {
     name : "java-built-in",
     properties : [ "binary", "slow" ],
-    results : [ 90, 7219, 38851, 46070, 889, 514 ]
+    results : [ 87, 7217, 39786, 47002, 889, 514 ]
   }, {
     name : "java-built-in-serializer",
     properties : [ "binary", "slow" ],
-    results : [ 89, 7491, 39587, 47078, 889, 514 ]
+    results : [ 87, 7319, 40197, 47516, 889, 514 ]
+  }, {
+    name : "java-manual",
+    properties : [ "binary", "fast" ],
+    results : [ 85, 1128, 846, 1975, 255, 147 ]
   }, {
     name : "jboss-marshalling-river-ct-manual",
     properties : [ "binary", "fast" ],
-    results : [ 88, 2230, 1705, 3935, 289, 167 ]
+    results : [ 90, 2250, 1709, 3958, 289, 167 ]
   }, {
     name : "jboss-marshalling-river-ct",
     properties : [ "binary" ],
-    results : [ 86, 3903, 3000, 6904, 298, 199 ]
+    results : [ 89, 3993, 3103, 7096, 298, 199 ]
+  }, {
+    name : "jboss-marshalling-river-manual",
+    properties : [ "binary" ],
+    results : [ 88, 2837, 5880, 8718, 483, 240 ]
   }, {
     name : "jboss-marshalling-river",
     properties : [ "binary", "slow" ],
-    results : [ 88, 6012, 35555, 41567, 694, 400 ]
+    results : [ 88, 6122, 32148, 38270, 694, 400 ]
+  }, {
+    name : "jboss-marshalling-serial",
+    properties : [ "binary", "slow" ],
+    results : [ 87, 14611, 41838, 56448, 856, 498 ]
+  }, {
+    name : "jboss-serialization",
+    properties : [ "binary" ],
+    results : [ 88, 8895, 8133, 17028, 932, 582 ]
+  }, {
+    name : "json/argo/manual-tree",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 87, 83298, 19792, 103090, 485, 263 ]
+  }, {
+    name : "json-col/jackson/databind",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 88, 1814, 2167, 3981, 293, 178 ]
   }, {
     name : "json/fastjson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 90, 1584, 1529, 3113, 486, 262 ]
+    results : [ 90, 1588, 1581, 3169, 486, 262 ]
   }, {
     name : "json/flexjson/databind",
     properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 87, 24898, 36869, 61767, 503, 273 ]
+    results : [ 88, 25665, 36120, 61784, 503, 273 ]
+  }, {
+    name : "json/gson/databind",
+    properties : [ "neutral", "text", "json" ],
+    results : [ 87, 6905, 6267, 13172, 486, 259 ]
   }, {
     name : "json/gson/manual",
     properties : [ "neutral", "text", "json" ],
-    results : [ 89, 4515, 5087, 9602, 468, 253 ]
+    results : [ 88, 4509, 5064, 9573, 468, 253 ]
+  }, {
+    name : "json/gson/manual-tree",
+    properties : [ "neutral", "text", "json" ],
+    results : [ 86, 6746, 7426, 14172, 485, 259 ]
+  }, {
+    name : "json/jackson+afterburner/databind",
+    properties : [ "binary", "fast" ],
+    results : [ 87, 1840, 2551, 4391, 485, 261 ]
+  }, {
+    name : "json/jackson/databind",
+    properties : [ "neutral", "text", "json" ],
+    results : [ 88, 2292, 3080, 5372, 485, 261 ]
   }, {
     name : "json/jackson-jr/databind",
     properties : [ "neutral", "text", "json" ],
-    results : [ 87, 2426, 3451, 5877, 468, 255 ]
+    results : [ 88, 2308, 3435, 5743, 468, 255 ]
+  }, {
+    name : "json/jackson/manual",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 88, 1463, 1987, 3450, 468, 253 ]
   }, {
     name : "json/javax-stream/glassfish",
     properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 90, 8472, 14762, 23234, 468, 253 ]
+    results : [ 88, 8835, 14769, 23604, 468, 253 ]
+  }, {
+    name : "json/javax-tree/glassfish",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 1742, 12389, 16522, 28911, 485, 263 ]
   }, {
     name : "json/jsonij/manual-jpath",
     properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 89, 45699, 17535, 63234, 478, 259 ]
+    results : [ 87, 46917, 17355, 64271, 478, 259 ]
+  }, {
+    name : "json/json-lib/databind",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 89, 33565, 154246, 187811, 485, 263 ]
+  }, {
+    name : "json/json.simple/manual",
+    properties : [ "neutral", "text", "json" ],
+    results : [ 87, 7342, 11076, 18418, 495, 269 ]
   }, {
     name : "json/json-smart/manual-tree",
     properties : [ "neutral", "text", "json" ],
-    results : [ 88, 7343, 5588, 12931, 495, 269 ]
+    results : [ 91, 7339, 5581, 12920, 495, 269 ]
+  }, {
+    name : "json/org.json/manual-tree",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 89, 8615, 11171, 19786, 485, 259 ]
   }, {
     name : "json/protobuf",
     properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 183, 11475, 73395, 84870, 488, 253 ]
+    results : [ 185, 11409, 76335, 87744, 488, 253 ]
   }, {
     name : "json/protostuff-manual",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 89, 1807, 2393, 4200, 449, 233 ]
+    results : [ 88, 1796, 2495, 4292, 449, 233 ]
+  }, {
+    name : "json/protostuff-runtime",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 89, 2118, 2749, 4866, 469, 243 ]
+  }, {
+    name : "json/svenson/databind",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 87, 5605, 14480, 20085, 495, 271 ]
+  }, {
+    name : "kryo-flat-pre",
+    properties : [ "binary", "fast" ],
+    results : [ 88, 864, 1135, 1999, 212, 132 ]
+  }, {
+    name : "kryo-flat",
+    properties : [ "binary", "fast" ],
+    results : [ 91, 1053, 1501, 2554, 268, 177 ]
+  }, {
+    name : "kryo-manual",
+    properties : [ "binary", "fast" ],
+    results : [ 88, 689, 835, 1525, 211, 131 ]
   }, {
     name : "kryo-opt",
     properties : [ "binary", "fast" ],
-    results : [ 88, 866, 1163, 2029, 209, 129 ]
+    results : [ 90, 894, 1148, 2042, 209, 129 ]
+  }, {
+    name : "kryo-serializer",
+    properties : [ "binary", "fast" ],
+    results : [ 89, 2134, 2001, 4135, 286, 188 ]
   }, {
     name : "msgpack/databind",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 88, 1187, 1816, 3003, 233, 146 ]
+    results : [ 87, 1180, 1875, 3055, 233, 146 ]
   }, {
     name : "msgpack/manual",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 88, 1196, 1717, 2913, 233, 146 ]
+    results : [ 91, 1185, 1727, 2912, 233, 146 ]
   }, {
     name : "protobuf/protostuff",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 116, 703, 974, 1677, 239, 149 ]
+    results : [ 116, 709, 968, 1678, 239, 149 ]
+  }, {
+    name : "protobuf/protostuff-runtime",
+    properties : [ "neutral", "binary", "fast" ],
+    results : [ 89, 949, 1145, 2094, 241, 150 ]
   }, {
     name : "protobuf",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 186, 1696, 997, 2693, 239, 149 ]
+    results : [ 185, 1707, 984, 2691, 239, 149 ]
   }, {
     name : "protostuff-graph",
     properties : [ "binary", "fast" ],
-    results : [ 116, 952, 1039, 1991, 239, 150 ]
+    results : [ 116, 961, 1031, 1992, 239, 150 ]
   }, {
     name : "protostuff-graph-runtime",
     properties : [ "binary", "fast" ],
-    results : [ 87, 1243, 1356, 2599, 241, 151 ]
+    results : [ 88, 1170, 1290, 2460, 241, 151 ]
+  }, {
+    name : "protostuff-manual",
+    properties : [ "binary", "fast" ],
+    results : [ 87, 600, 943, 1543, 239, 150 ]
   }, {
     name : "protostuff",
     properties : [ "binary", "fast" ],
-    results : [ 117, 650, 971, 1622, 239, 150 ]
+    results : [ 117, 643, 963, 1605, 239, 150 ]
+  }, {
+    name : "protostuff-runtime",
+    properties : [ "binary", "fast" ],
+    results : [ 88, 860, 1152, 2012, 241, 151 ]
+  }, {
+    name : "smile-col/jackson/databind",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 88, 1316, 1849, 3166, 252, 165 ]
   }, {
     name : "smile/jackson+afterburner/databind",
     properties : [ "binary", "fast" ],
-    results : [ 88, 1557, 1916, 3473, 352, 252 ]
+    results : [ 88, 1629, 1898, 3527, 352, 252 ]
   }, {
     name : "smile/jackson/databind",
-    properties : [ "binary" ],
-    results : [ 87, 2070, 2454, 4524, 338, 241 ]
+    properties : [ "binary", "fast" ],
+    results : [ 88, 2063, 2310, 4374, 338, 241 ]
   }, {
     name : "smile/jackson/manual",
     properties : [ "binary", "fast" ],
-    results : [ 84, 1202, 1493, 2695, 341, 244 ]
+    results : [ 88, 1170, 1495, 2665, 341, 244 ]
+  }, {
+    name : "stephenerialization",
+    properties : [ "binary", "slow" ],
+    results : [ 83, 8032, 40666, 48698, 1093, 515 ]
+  }, {
+    name : "thrift-compact",
+    properties : [ "neutral", "binary", "fast" ],
+    results : [ 181, 1929, 1214, 3143, 240, 148 ]
   }, {
     name : "thrift",
     properties : [ "neutral", "binary", "fast" ],
-    results : [ 179, 2294, 1276, 3571, 349, 197 ]
+    results : [ 176, 2291, 1277, 3568, 349, 197 ]
+  }, {
+    name : "wobly-compact",
+    properties : [ "binary", "fast" ],
+    results : [ 65, 1238, 767, 2006, 225, 139 ]
   }, {
     name : "wobly",
     properties : [ "binary", "fast" ],
-    results : [ 65, 1165, 750, 1915, 251, 151 ]
+    results : [ 66, 1166, 751, 1916, 251, 151 ]
   }, {
     name : "xml/aalto-manual",
     properties : [ "neutral", "text", "xml" ],
-    results : [ 88, 2613, 3972, 6585, 653, 304 ]
+    results : [ 88, 2655, 3939, 6593, 653, 304 ]
   }, {
     name : "xml/exi-manual",
     properties : [ "neutral", "text", "xml", "slow" ],
-    results : [ 89, 20458, 19230, 39688, 337, 327 ]
+    results : [ 87, 19761, 18343, 38103, 337, 327 ]
+  }, {
+    name : "xml/fastinfo-manual",
+    properties : [ "neutral", "text", "xml" ],
+    results : [ 86, 8588, 7181, 15769, 377, 284 ]
   }, {
     name : "xml/jackson/databind",
     properties : [ "neutral", "text", "xml" ],
-    results : [ 87, 3631, 6904, 10536, 683, 286 ]
+    results : [ 88, 3637, 6860, 10497, 683, 286 ]
   }, {
     name : "xml/javolution/manual",
     properties : [ "neutral", "text", "xml" ],
-    results : [ 88, 6927, 10871, 17798, 504, 263 ]
+    results : [ 87, 7035, 10966, 18001, 504, 263 ]
   }, {
     name : "xml/woodstox-manual",
     properties : [ "neutral", "text", "xml" ],
-    results : [ 90, 3993, 6252, 10245, 653, 304 ]
+    results : [ 87, 3927, 6340, 10267, 653, 304 ]
+  }, {
+    name : "xml/xstream+c-aalto",
+    properties : [ "neutral", "text", "xml" ],
+    results : [ 87, 5971, 13062, 19032, 525, 273 ]
   }, {
     name : "xml/xstream+c-fastinfo",
     properties : [ "neutral", "text", "xml", "slow" ],
-    results : [ 88, 10726, 11139, 21865, 345, 264 ]
+    results : [ 88, 10598, 10904, 21502, 345, 264 ]
   }, {
     name : "xml/xstream+c",
     properties : [ "neutral", "text", "xml", "slow" ],
-    results : [ 88, 7467, 17782, 25250, 487, 244 ]
+    results : [ 88, 7692, 17626, 25318, 487, 244 ]
+  }, {
+    name : "xml/xstream+c-woodstox",
+    properties : [ "neutral", "text", "xml", "slow" ],
+    results : [ 88, 7274, 15981, 23255, 525, 273 ]
+  }, {
+    name : "yaml/jackson/databind",
+    properties : [ "neutral", "text", "json", "slow" ],
+    results : [ 88, 25952, 40144, 66096, 505, 260 ]
   } ]
 }
