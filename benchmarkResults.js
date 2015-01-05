@@ -89,10 +89,6 @@ var benchmarkResults = {
     properties : [ "neutral", "binary", "fast" ],
     results : [ 88, 1106, 1707, 2813, 386, 238 ]
   }, {
-    name : "dsl-platform",
-    properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 96, 1356, 1519, 2874, 437, 233 ]
-  }, {
     name : "fst-flat-pre",
     properties : [ "binary", "fast" ],
     results : [ 88, 891, 988, 1879, 251, 165 ]
@@ -148,6 +144,10 @@ var benchmarkResults = {
     name : "json-col/jackson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
     results : [ 88, 1814, 2167, 3981, 293, 178 ]
+  }, {
+    name : "json/dsl-platform",
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 96, 1410, 1510, 2920, 437, 233 ]
   }, {
     name : "json/fastjson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
