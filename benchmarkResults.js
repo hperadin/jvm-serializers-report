@@ -150,8 +150,8 @@ var benchmarkResults = {
     results : [ 88, 1814, 2167, 3981, 293, 178 ]
   }, {
     name : "json/dsl-platform",
-    properties : [ "neutral", "text", "json", "slow" ],
-    results : [ 78, 945, 836466, 837411, 437, 233 ]
+    properties : [ "neutral", "text", "json", "fast" ],
+    results : [ 78, 950, 1399, 2349, 437, 233 ]
   }, {
     name : "json/fastjson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
@@ -178,7 +178,7 @@ var benchmarkResults = {
     results : [ 87, 1840, 2551, 4391, 485, 261 ]
   }, {
     name : "json/jackson/databind",
-    properties : [ "neutral", "text", "json", "fast" ],
+    properties : [ "neutral", "text", "json" ],
     results : [ 88, 2292, 3080, 5372, 485, 261 ]
   }, {
     name : "json/jackson-jr/databind",
@@ -214,7 +214,7 @@ var benchmarkResults = {
     results : [ 91, 7339, 5581, 12920, 495, 269 ]
   }, {
     name : "json/org.json/manual-tree",
-    properties : [ "neutral", "text", "json" ],
+    properties : [ "neutral", "text", "json", "slow" ],
     results : [ 89, 8615, 11171, 19786, 485, 259 ]
   }, {
     name : "json/protobuf",
