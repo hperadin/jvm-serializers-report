@@ -23,14 +23,14 @@ Benchmarks serializers
 <li>no manual optimizations.</li>
 <li>schema is known in advance (pre registration or even class generation). (Not all might make use of that)</li>
 </ul>
-<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:651,896,915,943,1723,1190,1949,1298,1656,1299,1550,1458,2355,1749,1688,1840,2033,2114|968,1001,1130,1403,1044,1837,1203,1880,1575,2015,1945,2173,1297,2190,2626,2521,2387,2762&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4876&chxr=1,0,4876&chxt=y,x&chxl=0:|json%2Fprotostuff-runtime|smile%2Fjackson%2Fdatabind|json%2Fjackson%2Bafterburner%2Fdatabind|cbor%2Fjackson%2Fdatabind|json-col%2Fjackson%2Fdatabind|thrift|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|thrift-compact|msgpack%2Fdatabind|protobuf|json%2Fdsl-platform|kryo-flat-pre|fst-flat-pre|protostuff'/>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:651,896,915,962,1723,1190,1949,1298,1656,1299,1550,1458,2355,1749,1688,1840,2033,2114|968,1001,1130,1255,1044,1837,1203,1880,1575,2015,1945,2173,1297,2190,2626,2521,2387,2762&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4876&chxr=1,0,4876&chxt=y,x&chxl=0:|json%2Fprotostuff-runtime|smile%2Fjackson%2Fdatabind|json%2Fjackson%2Bafterburner%2Fdatabind|cbor%2Fjackson%2Fdatabind|json-col%2Fjackson%2Fdatabind|thrift|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|thrift-compact|msgpack%2Fdatabind|protobuf|json%2Fdsl-platform|kryo-flat-pre|fst-flat-pre|protostuff'/>
 <br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:132,146,150,149,148,165,165,165,178,327,241,197,252,246,246,233,255,243|80,87,89,90,92,86,86,87,115,10,97,152,100,151,151,204,213,226&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,469&chxr=1,0,469&chxt=y,x&chxl=0:|json%2Fprotostuff-runtime|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform|cbor%2Fjackson%2Fdatabind|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|smile%2Fjackson%2Fdatabind|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|fst-flat-pre|thrift-compact|protobuf|protostuff|msgpack%2Fdatabind|kryo-flat-pre'/>
 <br clear='all' />
 <pre>                                   create     ser   deser   total   size  +dfl
 protostuff                            118     651     969    1619    239   150
 fst-flat-pre                           89     896    1001    1897    251   165
 kryo-flat-pre                          87     915    1130    2045    212   132
-json/dsl-platform                      80     943    1403    2346    437   233
+json/dsl-platform                      76     962    1255    2217    437   233
 protobuf                              187    1723    1045    2767    239   149
 msgpack/databind                       91    1190    1837    3027    233   146
 thrift-compact                        179    1949    1204    3152    240   148
@@ -113,11 +113,11 @@ bson/jackson/databind                  88    6899    8406   15305    506   286
 <ul><li>text format based. Usually can be read by anybody. Frequently inline schema inside data.</li>
 <li>Mixed regarding required preparation, object graph awareness (references).</li>
 </ul>
-<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x354&chd=t:943,1298,1656,1299,1749,2114,2264,2354,3682,6936,7396,12502,20383,24785,26092,11514,34216|1403,1880,1575,2015,2190,2762,3041,3406,6806,6469,18484,16740,19327,37638,41599,72374,149496&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,183712&chxr=1,0,183712&chxt=y,x&chxl=0:|json%2Fjson-lib%2Fdatabind|json%2Fprotobuf|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|xml%2Fexi-manual|json%2Fjavax-tree%2Fglassfish|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|xml%2Fjackson%2Fdatabind|json%2Fjackson-jr%2Fdatabind|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Fdsl-platform'/>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x354&chd=t:962,1298,1656,1299,1749,2114,2264,2354,3682,6936,7396,12502,20383,24785,26092,11514,34216|1255,1880,1575,2015,2190,2762,3041,3406,6806,6469,18484,16740,19327,37638,41599,72374,149496&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,183712&chxr=1,0,183712&chxt=y,x&chxl=0:|json%2Fjson-lib%2Fdatabind|json%2Fprotobuf|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|xml%2Fexi-manual|json%2Fjavax-tree%2Fglassfish|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|xml%2Fjackson%2Fdatabind|json%2Fjackson-jr%2Fdatabind|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Fdsl-platform'/>
 <br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x354&chd=t:165,165,178,327,233,255,243,261,263,263,262,259,244,253,273,260,286|86,87,115,10,204,213,226,224,222,222,224,227,243,235,230,245,397&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,683&chxr=1,0,683&chxt=y,x&chxl=0:|xml%2Fjackson%2Fdatabind|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|json%2Fprotobuf|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fjson-lib%2Fdatabind|json%2Fjavax-tree%2Fglassfish|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind'/>
 <br clear='all' />
 <pre>                                   create     ser   deser   total   size  +dfl
-json/dsl-platform                      80     943    1403    2346    437   233
+json/dsl-platform                      76     962    1255    2217    437   233
 smile-col/jackson/databind             88    1298    1879    3178    252   165
 json/fastjson/databind                 90    1656    1575    3231    486   262
 cbor-col/jackson/databind              91    1299    2015    3314    251   165
@@ -223,7 +223,7 @@ protostuff-graph                      119     998    1046    2044    239   150
 kryo-flat-pre                          87     915    1130    2045    212   132
 kryo-opt                               89     888    1186    2074    209   129
 protobuf/protostuff-runtime            87     971    1147    2118    241   150
-json/dsl-platform                      80     943    1403    2346    437   233
+json/dsl-platform                      76     962    1255    2217    437   233
 protostuff-graph-runtime               89    1157    1327    2484    241   151
 kryo-flat                              89    1097    1470    2567    268   177
 smile/jackson/manual                   88    1213    1503    2716    341   244
