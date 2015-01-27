@@ -151,7 +151,7 @@ var benchmarkResults = {
   }, {
     name : "json/dsl-platform",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 76, 962, 1255, 2217, 437, 233 ]
+    results : [ 75, 959, 1246, 2205, 437, 233 ]
   }, {
     name : "json/fastjson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
