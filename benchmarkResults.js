@@ -149,13 +149,13 @@ var benchmarkResults = {
     properties : [ "neutral", "text", "json", "fast" ],
     results : [ 85, 1796, 2174, 3970, 293, 178 ]
   }, {
-    name : "json/dsl-platform/full",
+    name : "json/dsl-platform/omit-defaults",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 72, 991, 1353, 2345, 485, 261 ]
+    results : [ 72, 955, 1247, 2202, 437, 233 ]
   }, {
-    name : "json/dsl-platform/minimal",
+    name : "json/dsl-platform",
     properties : [ "neutral", "text", "json", "fast" ],
-    results : [ 72, 956, 1255, 2210, 437, 233 ]
+    results : [ 73, 993, 1367, 2360, 485, 261 ]
   }, {
     name : "json/fastjson/databind",
     properties : [ "neutral", "text", "json", "fast" ],
