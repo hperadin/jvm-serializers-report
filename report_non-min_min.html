@@ -1,0 +1,387 @@
+<h3>Test Platform</h3>
+OS:Linux
+JVM:Oracle Corporation 1.7.0_72
+CPU:null os-arch:null
+Cores (incl HT):4
+
+<h3>Disclaimer</h3>
+
+This test focusses on en/decoding of a cyclefree data structure, but the featureset of the libraries compared differs a lot:
+<ul><li>some serializers support cycle detection/object sharing others just write non-cyclic tree structures</li>
+<li>some include full metadata in serialized output, some don't</li>
+<li>some are cross platform, some are language specific</li>
+<li>some are text based, some are binary,</li>
+<li>some support versioning forward/backward, both, some don't</li></ul>
+
+(See "ToolBehavior":wiki/ToolBehavior)
+Other test data will yield different results (e.g. adding a non ascii char to every string :-) ). However the results give a raw estimation of library performance.
+
+
+<h3>Serializers (no shared refs)</h3>
+Benchmarks serializers
+<ul><li>Only cycle free tree structures. An object referenced twice will be serialized twice.</li>
+<li>no manual optimizations.</li>
+<li>schema is known in advance (pre registration or even class generation). (Not all might make use of that)</li>
+</ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:640,878,855,880,875,1700,1185,1901,1629,1267,1336,1443,2297,1680,1796,2489,1910,1678|969,1003,1127,1140,1222,967,1794,1191,1550,1920,1914,2107,1277,1937,2174,1548,2537,2848&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4526&chxr=1,0,4526&chxt=y,x&chxl=0:|cbor%2Fjackson%2Fdatabind|json%2Fjackson%2Bafterburner%2Fdatabind|scala%2Fsbinary|json-col%2Fjackson%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|thrift-compact|msgpack%2Fdatabind|protobuf|json%2Fdsl-platform|kryo-flat-pre|json%2Fdsl-platform%2Fomit-defaults|fst-flat-pre|protostuff'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:132,146,150,149,148,165,165,165,147,178,327,241,197,252,246,246,233,255|80,87,89,90,92,86,86,87,108,115,10,97,152,100,151,151,204,213&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,468&chxr=1,0,468&chxt=y,x&chxl=0:|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform%2Fomit-defaults|cbor%2Fjackson%2Fdatabind|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|smile%2Fjackson%2Fdatabind|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|scala%2Fsbinary|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|fst-flat-pre|thrift-compact|protobuf|protostuff|msgpack%2Fdatabind|kryo-flat-pre'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+protostuff                            116     640     969    1609    239   150
+fst-flat-pre                           85     878    1003    1881    251   165
+json/dsl-platform/omit-defaults        72     855    1127    1982    437   233
+kryo-flat-pre                          87     880    1140    2020    212   132
+json/dsl-platform                      73     875    1221    2097    485   261
+protobuf                              180    1700     967    2667    239   149
+msgpack/databind                       86    1185    1794    2979    233   146
+thrift-compact                        179    1901    1191    3092    240   148
+json/fastjson/databind                 85    1629    1549    3179    486   262
+cbor-col/jackson/databind              86    1267    1920    3187    251   165
+smile-col/jackson/databind             86    1336    1914    3250    252   165
+cbor/jackson+afterburner/databind      87    1443    2107    3550    397   246
+thrift                                176    2297    1277    3574    349   197
+smile/jackson+afterburner/databind     85    1680    1937    3617    352   252
+json-col/jackson/databind              85    1796    2174    3970    293   178
+scala/sbinary                         629    2489    1548    4037    255   147
+json/jackson+afterburner/databind      89    1910    2536    4447    485   261
+cbor/jackson/databind                  86    1678    2848    4526    397   246
+smile/jackson/databind                 86    2111    2473    4584    338   241
+json/protostuff-runtime                86    2086    2747    4832    469   243
+json/jackson/databind                  88    2365    3224    5588    485   261
+json/jackson-jr/databind               88    2346    3390    5735    468   255
+xml/jackson/databind                   88    4203    7056   11259    683   286
+json/gson/databind                     86    7042    6341   13383    486   259
+bson/jackson/databind                  88    6936    8669   15605    506   286
+xml/xstream+c                          86    7338   18430   25768    487   244
+json/javax-tree/glassfish            1771   12088   16315   28403    485   263
+xml/exi-manual                         89   19909   19579   39488    337   327
+java-built-in                          87    7093   40900   47993    889   514
+scala/java-built-in                   612   12489   64668   77157   1293   698
+json/protobuf                         181   11077   72472   83549    488   253
+json/json-lib/databind                 91   33852  150136  183989    485   263
+</pre>
+
+
+
+<h3>Full Object Graph Serializers</h3>
+Contains serializer(-configurations)
+<ul><li>supporting full object graph write/read. Object graph may contain cycles. If an Object is referenced twice, it will be so after deserialization.</li>
+<li>nothing is known in advance, no class generation, no preregistering of classes. Everything is captured at runtime using e.g. reflection.</li>
+<li>note this usually cannot be used cross language, however JSON/XML formats may enable cross language deserialization.</li>
+</ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x274&chd=t:956,1153,2216,2086,4095,4924,8333,6099,7887,7922,14569,25498,26138|1027,1309,1920,2057,3132,7462,8237,33984,39104,42954,40794,36163,41324&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,67462&chxr=1,0,67462&chxt=y,x&chxl=0:|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|jboss-marshalling-serial|stephenerialization|java-built-in-serializer|jboss-marshalling-river|jboss-serialization|hessian|jboss-marshalling-river-ct|fst|kryo-serializer|protostuff-graph-runtime|protostuff-graph'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x274&chd=t:150,151,188,199,203,313,273,260,400,498,514,582,515|89,90,98,99,113,188,230,245,294,358,375,350,578&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,1093&chxr=1,0,1093&chxt=y,x&chxl=0:|stephenerialization|jboss-serialization|java-built-in-serializer|jboss-marshalling-serial|jboss-marshalling-river|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|hessian|fst|jboss-marshalling-river-ct|kryo-serializer|protostuff-graph-runtime|protostuff-graph'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+protostuff-graph                      115     956    1027    1983    239   150
+protostuff-graph-runtime               89    1153    1309    2462    241   151
+kryo-serializer                        86    2216    1920    4136    286   188
+fst                                    87    2086    2057    4143    316   203
+jboss-marshalling-river-ct             87    4095    3132    7227    298   199
+hessian                                87    4924    7462   12386    501   313
+jboss-serialization                    87    8333    8237   16570    932   582
+jboss-marshalling-river                87    6099   33984   40083    694   400
+java-built-in-serializer               87    7887   39105   46991    889   514
+stephenerialization                    82    7922   42954   50876   1093   515
+jboss-marshalling-serial               87   14569   40794   55363    856   498
+json/flexjson/databind                 86   25498   36163   61661    503   273
+yaml/jackson/databind                  86   26138   41324   67462    505   260
+</pre>
+
+
+
+<h3>Cross Lang Binary Serializers</h3>
+Contains serializer(-configurations)
+<ul><li>Only cycle free tree structures. An object referenced twice will be serialized twice.</li>
+<li>schema is known in advance (pre registration, intermediate message description languages, class generation).</li>
+</ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x194&chd=t:698,942,1700,1185,1901,2297,1678,4924,6936|967,1178,967,1794,1191,1277,2848,7462,8669&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,15605&chxr=1,0,15605&chxt=y,x&chxl=0:|bson%2Fjackson%2Fdatabind|hessian|cbor%2Fjackson%2Fdatabind|thrift|thrift-compact|msgpack%2Fdatabind|protobuf|protobuf%2Fprotostuff-runtime|protobuf%2Fprotostuff'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x194&chd=t:146,149,149,148,150,197,246,313,286|87,90,90,92,91,152,151,188,220&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,506&chxr=1,0,506&chxt=y,x&chxl=0:|bson%2Fjackson%2Fdatabind|hessian|cbor%2Fjackson%2Fdatabind|thrift|protobuf%2Fprotostuff-runtime|thrift-compact|protobuf|protobuf%2Fprotostuff|msgpack%2Fdatabind'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+protobuf/protostuff                   113     698     967    1665    239   149
+protobuf/protostuff-runtime            86     942    1179    2120    241   150
+protobuf                              180    1700     967    2667    239   149
+msgpack/databind                       86    1185    1794    2979    233   146
+thrift-compact                        179    1901    1191    3092    240   148
+thrift                                176    2297    1277    3574    349   197
+cbor/jackson/databind                  86    1678    2848    4526    397   246
+hessian                                87    4924    7462   12386    501   313
+bson/jackson/databind                  88    6936    8669   15605    506   286
+</pre>
+
+
+
+<h3>XML/JSon Serializers</h3>
+<ul><li>text format based. Usually can be read by anybody. Frequently inline schema inside data.</li>
+<li>Mixed regarding required preparation, object graph awareness (references).</li>
+</ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:855,875,1629,1267,1336,1796,2086,2365,2346,4203,7042,7338,12088,19909,25498,26138,11077,33852|1127,1222,1550,1920,1914,2174,2746,3223,3389,7056,6341,18430,16315,19579,36163,41324,72472,150137&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,183989&chxr=1,0,183989&chxt=y,x&chxl=0:|json%2Fjson-lib%2Fdatabind|json%2Fprotobuf|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|xml%2Fexi-manual|json%2Fjavax-tree%2Fglassfish|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|xml%2Fjackson%2Fdatabind|json%2Fjackson-jr%2Fdatabind|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fdsl-platform|json%2Fdsl-platform%2Fomit-defaults'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:165,165,178,327,233,255,243,261,261,263,263,262,259,244,253,273,260,286|86,87,115,10,204,213,226,224,224,222,222,224,227,243,235,230,245,397&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,683&chxr=1,0,683&chxt=y,x&chxl=0:|xml%2Fjackson%2Fdatabind|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|json%2Fprotobuf|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fjson-lib%2Fdatabind|json%2Fjavax-tree%2Fglassfish|json%2Fjackson%2Fdatabind|json%2Fdsl-platform|json%2Fprotostuff-runtime|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform%2Fomit-defaults|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+json/dsl-platform/omit-defaults        72     855    1127    1982    437   233
+json/dsl-platform                      73     875    1221    2097    485   261
+json/fastjson/databind                 85    1629    1549    3179    486   262
+cbor-col/jackson/databind              86    1267    1920    3187    251   165
+smile-col/jackson/databind             86    1336    1914    3250    252   165
+json-col/jackson/databind              85    1796    2174    3970    293   178
+json/protostuff-runtime                86    2086    2747    4832    469   243
+json/jackson/databind                  88    2365    3224    5588    485   261
+json/jackson-jr/databind               88    2346    3390    5735    468   255
+xml/jackson/databind                   88    4203    7056   11259    683   286
+json/gson/databind                     86    7042    6341   13383    486   259
+xml/xstream+c                          86    7338   18430   25768    487   244
+json/javax-tree/glassfish            1771   12088   16315   28403    485   263
+xml/exi-manual                         89   19909   19579   39488    337   327
+json/flexjson/databind                 86   25498   36163   61661    503   273
+yaml/jackson/databind                  86   26138   41324   67462    505   260
+json/protobuf                         181   11077   72472   83549    488   253
+json/json-lib/databind                 91   33852  150136  183989    485   263
+</pre>
+
+
+
+<h3>Manually optimized Serializers</h3>
+all flavours of manually optimized serializers. Handcoded and hardwired to exactly the benchmark's message structures.
+<ul><li>illustrates what's possible, at what level generic approaches can be optimized in case
+</li></ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:689,614,1161,1151,1226,841,1200,1137,1176,1463,2458,2109,2238,1785,2635,2826,4522,3948|832,940,749,835,772,1194,1477,1646,1730,1968,1476,1840,1716,2428,3904,5742,5112,6236&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,10184&chxr=1,0,10184&chxt=y,x&chxl=0:|xml%2Fwoodstox-manual|json%2Fgson%2Fmanual|jboss-marshalling-river-manual|xml%2Faalto-manual|json%2Fprotostuff-manual|jboss-marshalling-river-ct-manual|avro-specific|avro-generic|json%2Fjackson%2Fmanual|msgpack%2Fmanual|cbor%2Fjackson%2Fmanual|smile%2Fjackson%2Fmanual|kryo-opt|wobly-compact|java-manual|wobly|protostuff-manual|kryo-manual'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:129,131,133,133,139,146,150,151,147,167,244,264,284,238,233,253,253,253|80,80,88,88,86,87,89,100,108,122,97,81,93,148,216,215,215,215&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,468&chxr=1,0,468&chxt=y,x&chxl=0:|json%2Fjavax-stream%2Fglassfish|json%2Fgson%2Fmanual|json%2Fjackson%2Fmanual|json%2Fprotostuff-manual|cbor%2Fjackson%2Fmanual|xml%2Ffastinfo-manual|xml%2Fxstream%2Bc-fastinfo|smile%2Fjackson%2Fmanual|jboss-marshalling-river-ct-manual|java-manual|wobly|protostuff-manual|msgpack%2Fmanual|wobly-compact|avro-specific|avro-generic|kryo-manual|kryo-opt'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+kryo-manual                            86     689     832    1521    211   131
+protostuff-manual                      87     614     940    1554    239   150
+wobly                                  63    1161     749    1910    251   151
+java-manual                            89    1151     835    1986    255   147
+wobly-compact                          63    1226     772    1998    225   139
+kryo-opt                               87     841    1194    2035    209   129
+smile/jackson/manual                   87    1200    1477    2677    341   244
+cbor/jackson/manual                    88    1137    1647    2783    386   238
+msgpack/manual                         86    1176    1730    2906    233   146
+json/jackson/manual                    88    1463    1969    3431    468   253
+avro-generic                          500    2458    1476    3934    221   133
+avro-specific                         127    2109    1840    3949    221   133
+jboss-marshalling-river-ct-manual      88    2238    1715    3954    289   167
+json/protostuff-manual                 87    1785    2428    4213    449   233
+xml/aalto-manual                       86    2635    3904    6539    653   304
+jboss-marshalling-river-manual         87    2826    5742    8568    483   240
+json/gson/manual                       86    4522    5111    9634    468   253
+xml/woodstox-manual                    85    3948    6237   10184    653   304
+json/json-smart/manual-tree            86    7307    5442   12749    495   269
+json/gson/manual-tree                  86    6666    7341   14007    485   259
+xml/fastinfo-manual                    86    8000    6896   14897    377   284
+bson/mongodb/manual                    86    4524   10684   15208    495   278
+xml/javolution/manual                  86    6980   10970   17949    504   263
+json/json.simple/manual                86    7351   11031   18382    495   269
+xml/xstream+c-aalto                    87    5905   12817   18722    525   273
+json/org.json/manual-tree              86    8721   11191   19912    485   259
+json/svenson/databind                  86    5639   14464   20103    495   269
+xml/xstream+c-fastinfo                 89   10516   11043   21559    345   264
+xml/xstream+c-woodstox                 87    7143   15567   22710    525   273
+json/javax-stream/glassfish            88    8536   14472   23008    468   253
+json/jsonij/manual-jpath               87   48688   17186   65874    478   259
+json/argo/manual-tree                  87   87342   19717  107059    485   263
+</pre>
+
+
+
+<h3>Cost of features</h3>
+shows performance vs convenience of manually-selected libs.
+<ul><li>cycle free, schema known at compile time, manual optimization: kryo-manual, msgpack/manual</li>
+<li>cycle free, schema known at compile time: protostuff, fst-flat-pre, kryo-flat-pre. (note: protostuff uses class generation while the other two just require a list of classes to be written)</li>
+<li>cycle free, schema UNKNOWN at compile time: fst-flat, kryo-flat, protostuff-runtime, msgpack/databind</li>
+<li>full object graph awareness, schema UNKNOWN at compile time: fst, kryo.</li>
+</ul>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x234&chd=t:689,640,878,863,880,1088,1230,1176,1185,2216,2086|832,969,1003,1145,1140,1459,1510,1730,1794,1920,2057&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4143&chxr=1,0,4143&chxt=y,x&chxl=0:|fst|kryo-serializer|msgpack%2Fdatabind|msgpack%2Fmanual|fst-flat|kryo-flat|kryo-flat-pre|protostuff-runtime|fst-flat-pre|protostuff|kryo-manual'/>
+<br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x234&chd=t:131,132,146,146,150,151,165,177,188,204,203|80,80,87,87,89,90,86,91,98,110,113&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,316&chxr=1,0,316&chxt=y,x&chxl=0:|fst|fst-flat|kryo-serializer|kryo-flat|fst-flat-pre|protostuff-runtime|protostuff|msgpack%2Fdatabind|msgpack%2Fmanual|kryo-flat-pre|kryo-manual'/>
+<br clear='all' />
+<pre>                                   create     ser   deser   total   size  +dfl
+kryo-manual                            86     689     832    1521    211   131
+protostuff                            116     640     969    1609    239   150
+fst-flat-pre                           85     878    1003    1881    251   165
+protostuff-runtime                     87     863    1144    2008    241   151
+kryo-flat-pre                          87     880    1140    2020    212   132
+kryo-flat                              87    1088    1460    2547    268   177
+fst-flat                               87    1230    1510    2740    314   204
+msgpack/manual                         86    1176    1730    2906    233   146
+msgpack/databind                       86    1185    1794    2979    233   146
+kryo-serializer                        86    2216    1920    4136    286   188
+fst                                    87    2086    2057    4143    316   203
+</pre>
+
+<h3>Full data</h3>
+
+
+<pre>                                   create     ser   deser   total   size  +dfl
+kryo-manual                            86     689     832    1521    211   131
+protostuff-manual                      87     614     940    1554    239   150
+protostuff                            116     640     969    1609    239   150
+protobuf/protostuff                   113     698     967    1665    239   149
+fst-flat-pre                           85     878    1003    1881    251   165
+wobly                                  63    1161     749    1910    251   151
+json/dsl-platform/omit-defaults        72     855    1127    1982    437   233
+protostuff-graph                      115     956    1027    1983    239   150
+java-manual                            89    1151     835    1986    255   147
+wobly-compact                          63    1226     772    1998    225   139
+protostuff-runtime                     87     863    1144    2008    241   151
+kryo-flat-pre                          87     880    1140    2020    212   132
+kryo-opt                               87     841    1194    2035    209   129
+json/dsl-platform                      73     875    1221    2097    485   261
+protobuf/protostuff-runtime            86     942    1179    2120    241   150
+protostuff-graph-runtime               89    1153    1309    2462    241   151
+kryo-flat                              87    1088    1460    2547    268   177
+protobuf                              180    1700     967    2667    239   149
+smile/jackson/manual                   87    1200    1477    2677    341   244
+fst-flat                               87    1230    1510    2740    314   204
+cbor/jackson/manual                    88    1137    1647    2783    386   238
+msgpack/manual                         86    1176    1730    2906    233   146
+msgpack/databind                       86    1185    1794    2979    233   146
+thrift-compact                        179    1901    1191    3092    240   148
+json/fastjson/databind                 85    1629    1549    3179    486   262
+cbor-col/jackson/databind              86    1267    1920    3187    251   165
+smile-col/jackson/databind             86    1336    1914    3250    252   165
+json/jackson/manual                    88    1463    1969    3431    468   253
+cbor/jackson+afterburner/databind      87    1443    2107    3550    397   246
+thrift                                176    2297    1277    3574    349   197
+smile/jackson+afterburner/databind     85    1680    1937    3617    352   252
+avro-generic                          500    2458    1476    3934    221   133
+avro-specific                         127    2109    1840    3949    221   133
+jboss-marshalling-river-ct-manual      88    2238    1715    3954    289   167
+json-col/jackson/databind              85    1796    2174    3970    293   178
+scala/sbinary                         629    2489    1548    4037    255   147
+kryo-serializer                        86    2216    1920    4136    286   188
+fst                                    87    2086    2057    4143    316   203
+json/protostuff-manual                 87    1785    2428    4213    449   233
+json/jackson+afterburner/databind      89    1910    2536    4447    485   261
+cbor/jackson/databind                  86    1678    2848    4526    397   246
+smile/jackson/databind                 86    2111    2473    4584    338   241
+json/protostuff-runtime                86    2086    2747    4832    469   243
+json/jackson/databind                  88    2365    3224    5588    485   261
+json/jackson-jr/databind               88    2346    3390    5735    468   255
+xml/aalto-manual                       86    2635    3904    6539    653   304
+jboss-marshalling-river-ct             87    4095    3132    7227    298   199
+jboss-marshalling-river-manual         87    2826    5742    8568    483   240
+json/gson/manual                       86    4522    5111    9634    468   253
+xml/woodstox-manual                    85    3948    6237   10184    653   304
+xml/jackson/databind                   88    4203    7056   11259    683   286
+hessian                                87    4924    7462   12386    501   313
+json/json-smart/manual-tree            86    7307    5442   12749    495   269
+json/gson/databind                     86    7042    6341   13383    486   259
+json/gson/manual-tree                  86    6666    7341   14007    485   259
+xml/fastinfo-manual                    86    8000    6896   14897    377   284
+bson/mongodb/manual                    86    4524   10684   15208    495   278
+bson/jackson/databind                  88    6936    8669   15605    506   286
+jboss-serialization                    87    8333    8237   16570    932   582
+xml/javolution/manual                  86    6980   10970   17949    504   263
+json/json.simple/manual                86    7351   11031   18382    495   269
+xml/xstream+c-aalto                    87    5905   12817   18722    525   273
+json/org.json/manual-tree              86    8721   11191   19912    485   259
+json/svenson/databind                  86    5639   14464   20103    495   269
+xml/xstream+c-fastinfo                 89   10516   11043   21559    345   264
+xml/xstream+c-woodstox                 87    7143   15567   22710    525   273
+json/javax-stream/glassfish            88    8536   14472   23008    468   253
+xml/xstream+c                          86    7338   18430   25768    487   244
+json/javax-tree/glassfish            1771   12088   16315   28403    485   263
+xml/exi-manual                         89   19909   19579   39488    337   327
+jboss-marshalling-river                87    6099   33984   40083    694   400
+java-built-in-serializer               87    7887   39105   46991    889   514
+java-built-in                          87    7093   40900   47993    889   514
+stephenerialization                    82    7922   42954   50876   1093   515
+jboss-marshalling-serial               87   14569   40794   55363    856   498
+json/flexjson/databind                 86   25498   36163   61661    503   273
+json/jsonij/manual-jpath               87   48688   17186   65874    478   259
+yaml/jackson/databind                  86   26138   41324   67462    505   260
+scala/java-built-in                   612   12489   64668   77157   1293   698
+json/protobuf                         181   11077   72472   83549    488   253
+json/argo/manual-tree                  87   87342   19717  107059    485   263
+json/json-lib/databind                 91   33852  150136  183989    485   263
+</pre>
+
+
+
+<pre>                                   Effort          Format         Structure  Misc
+kryo-manual                        MANUAL_OPT      BINARY         FLAT_TREE  [] manually optimized                                       
+protostuff-manual                  MANUAL_OPT      BINARY         FLAT_TREE  [] manual                                                   
+protostuff                         CLASSES_KNOWN   BINARY         FLAT_TREE  [] generated code                                           
+protobuf/protostuff                CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  [] protobuf + generated code                                
+fst-flat-pre                       CLASSES_KNOWN   BINARY         FLAT_TREE  [] fst in unshared mode with preregistered classes          
+wobly                              MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
+json/dsl-platform/omit-defaults    CLASSES_KNOWN   JSON           FLAT_TREE  [] Omits default values from the JSON output.               
+protostuff-graph                   CLASSES_KNOWN   BINARY         FULL_GRAPH [] graph + generated code                                   
+java-manual                        MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
+wobly-compact                      MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
+protostuff-runtime                 ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] reflection                                               
+kryo-flat-pre                      CLASSES_KNOWN   BINARY         FLAT_TREE  [] no shared refs, preregistered classes                    
+kryo-opt                           MANUAL_OPT      BINARY         FLAT_TREE  [] manually optimized                                       
+json/dsl-platform                  CLASSES_KNOWN   JSON           FLAT_TREE  [] Serializes all properties.                               
+protobuf/protostuff-runtime        ZERO_KNOWLEDGE  BIN_CROSSLANG  FLAT_TREE  [] protobuf + reflection                                    
+protostuff-graph-runtime           ZERO_KNOWLEDGE  BINARY         FULL_GRAPH [] graph + reflection                                       
+kryo-flat                          ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] default, no shared refs                                  
+protobuf                           CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  []                                                          
+smile/jackson/manual               MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
+fst-flat                           ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] fst default, but unshared mode                           
+cbor/jackson/manual                MANUAL_OPT      BIN_CROSSLANG  FLAT_TREE  []                                                          
+msgpack/manual                     MANUAL_OPT      BIN_CROSSLANG  FLAT_TREE  [] uses positional (column) layout (instead of Maps std impl uses) to eliminate use of names
+msgpack/databind                   CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  [] uses positional (column) layout (instead of Maps std impl uses) to eliminate use of names
+thrift-compact                     CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  []                                                          
+json/fastjson/databind             ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+cbor-col/jackson/databind          ZERO_KNOWLEDGE  JSON           FLAT_TREE  [] uses positional (column) layout to eliminate use of names
+smile-col/jackson/databind         ZERO_KNOWLEDGE  JSON           FLAT_TREE  [] uses positional (column) layout to eliminate use of names
+json/jackson/manual                MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+cbor/jackson+afterburner/databind  ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] uses bytecode generation to reduce overhead              
+thrift                             CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  []                                                          
+smile/jackson+afterburner/databind ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] uses bytecode generation to reduce overhead              
+avro-generic                       MANUAL_OPT      BIN_CROSSLANG  FLAT_TREE  []                                                          
+avro-specific                      MANUAL_OPT      BIN_CROSSLANG  UNKNOWN    []                                                          
+jboss-marshalling-river-ct-manual  MANUAL_OPT      BINARY         FULL_GRAPH [] full graph preregistered classes, manual optimization    
+json-col/jackson/databind          ZERO_KNOWLEDGE  JSON           FLAT_TREE  [] uses positional (column) layout to eliminate use of names
+scala/sbinary                      MISC            MISC           UNKNOWN    [] null                                                     
+kryo-serializer                    ZERO_KNOWLEDGE  BINARY         FULL_GRAPH [] default                                                  
+fst                                ZERO_KNOWLEDGE  BINARY         FULL_GRAPH [] default: JDK serialization drop-in-replacement mode      
+json/protostuff-manual             MANUAL_OPT      JSON           FLAT_TREE  [] json + manual                                            
+json/jackson+afterburner/databind  ZERO_KNOWLEDGE  BINARY         FLAT_TREE  [] uses bytecode generation to reduce overhead              
+cbor/jackson/databind              ZERO_KNOWLEDGE  BIN_CROSSLANG  FLAT_TREE  []                                                          
+smile/jackson/databind             ZERO_KNOWLEDGE  BINARY         FLAT_TREE  []                                                          
+json/protostuff-runtime            ZERO_KNOWLEDGE  JSON           FLAT_TREE  [] json + reflection                                        
+json/jackson/databind              ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+json/jackson-jr/databind           ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+xml/aalto-manual                   MANUAL_OPT      XML            UNKNOWN    []                                                          
+jboss-marshalling-river-ct         CLASSES_KNOWN   BINARY         FULL_GRAPH [] full graph with preregistered classes                    
+jboss-marshalling-river-manual     MANUAL_OPT      BINARY         FULL_GRAPH [] full graph with manual optimizations                     
+json/gson/manual                   MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+xml/woodstox-manual                MANUAL_OPT      XML            UNKNOWN    []                                                          
+xml/jackson/databind               ZERO_KNOWLEDGE  XML            FLAT_TREE  []                                                          
+hessian                            ZERO_KNOWLEDGE  BIN_CROSSLANG  FULL_GRAPH []                                                          
+json/json-smart/manual-tree        MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+json/gson/databind                 ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+json/gson/manual-tree              MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+xml/fastinfo-manual                MANUAL_OPT      XML            UNKNOWN    []                                                          
+bson/mongodb/manual                MANUAL_OPT      BIN_CROSSLANG  FLAT_TREE  []                                                          
+bson/jackson/databind              CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  []                                                          
+jboss-serialization                ZERO_KNOWLEDGE  BINARY         FULL_GRAPH []                                                          
+xml/javolution/manual              MANUAL_OPT      XML            FLAT_TREE  []                                                          
+json/json.simple/manual            MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+xml/xstream+c-aalto                MANUAL_OPT      XML            FLAT_TREE  []                                                          
+json/org.json/manual-tree          MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+json/svenson/databind              MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+xml/xstream+c-fastinfo             MANUAL_OPT      XML            FLAT_TREE  []                                                          
+xml/xstream+c-woodstox             MANUAL_OPT      XML            FLAT_TREE  []                                                          
+json/javax-stream/glassfish        MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+xml/xstream+c                      ZERO_KNOWLEDGE  XML            FLAT_TREE  []                                                          
+json/javax-tree/glassfish          ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+xml/exi-manual                     ZERO_KNOWLEDGE  XML            UNKNOWN    []                                                          
+jboss-marshalling-river            ZERO_KNOWLEDGE  BINARY         FULL_GRAPH [] full graph zero knowledge                                
+java-built-in-serializer           ZERO_KNOWLEDGE  BINARY         FULL_GRAPH []                                                          
+java-built-in                      ZERO_KNOWLEDGE  BINARY         FLAT_TREE  []                                                          
+stephenerialization                ZERO_KNOWLEDGE  BINARY         FULL_GRAPH [] null                                                     
+jboss-marshalling-serial           ZERO_KNOWLEDGE  BINARY         FULL_GRAPH []                                                          
+json/flexjson/databind             ZERO_KNOWLEDGE  JSON           FULL_GRAPH []                                                          
+json/jsonij/manual-jpath           MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+yaml/jackson/databind              ZERO_KNOWLEDGE  JSON           FULL_GRAPH []                                                          
+scala/java-built-in                MISC            MISC           UNKNOWN    [] null                                                     
+json/protobuf                      CLASSES_KNOWN   JSON           FLAT_TREE  []                                                          
+json/argo/manual-tree              MANUAL_OPT      JSON           FLAT_TREE  []                                                          
+json/json-lib/databind             ZERO_KNOWLEDGE  JSON           FLAT_TREE  []                                                          
+</pre>
+
