@@ -1,6 +1,6 @@
 <h3>Test Platform</h3>
 OS:Linux
-JVM:Oracle Corporation 1.7.0_72
+JVM:Oracle Corporation 1.7.0_80
 CPU:null os-arch:null
 Cores (incl HT):4
 
@@ -23,14 +23,14 @@ Benchmarks serializers
 <li>no manual optimizations.</li>
 <li>schema is known in advance (pre registration or even class generation). (Not all might make use of that)</li>
 </ul>
-<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:638,801,900,817,896,1726,1191,1940,1606,1278,1293,1409,2306,1611,1746,2538,2085,1925|968,1006,995,1097,1172,972,1841,1215,1574,2011,2055,2044,1272,1988,2182,1584,2462,2623&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4548&chxr=1,0,4548&chxt=y,x&chxl=0:|json%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Fdatabind|scala%2Fsbinary|json-col%2Fjackson%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|cbor%2Fjackson%2Bafterburner%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|thrift-compact|msgpack%2Fdatabind|protobuf|kryo-flat-pre|json%2Fdsl-platform|fst-flat-pre|json%2Fdsl-platform%2Fomit-defaults|protostuff'/>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:638,752,780,900,896,1726,1191,1940,1606,1278,1293,1409,2306,1611,1746,2538,2085,1925|968,1005,1103,995,1172,972,1841,1215,1574,2011,2055,2044,1272,1988,2182,1584,2462,2623&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,4548&chxr=1,0,4548&chxt=y,x&chxl=0:|json%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Fdatabind|scala%2Fsbinary|json-col%2Fjackson%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|cbor%2Fjackson%2Bafterburner%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|thrift-compact|msgpack%2Fdatabind|protobuf|kryo-flat-pre|fst-flat-pre|json%2Fdsl-platform|json%2Fdsl-platform%2Fomit-defaults|protostuff'/>
 <br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:132,146,150,149,148,165,165,165,147,178,327,241,197,252,246,246,233,255|80,87,89,90,92,86,86,87,108,115,10,97,152,100,151,151,204,213&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,468&chxr=1,0,468&chxt=y,x&chxl=0:|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform%2Fomit-defaults|cbor%2Fjackson%2Fdatabind|cbor%2Fjackson%2Bafterburner%2Fdatabind|smile%2Fjackson%2Bafterburner%2Fdatabind|thrift|smile%2Fjackson%2Fdatabind|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|scala%2Fsbinary|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|fst-flat-pre|thrift-compact|protobuf|protostuff|msgpack%2Fdatabind|kryo-flat-pre'/>
 <br clear='all' />
 <pre>                                   create     ser   deser   total   size  +dfl
 protostuff                            117     638     968    1606    239   150
-json/dsl-platform/omit-defaults        74     801    1006    1807    437   233
+json/dsl-platform/omit-defaults        73     752    1005    1757    437   233
+json/dsl-platform                      73     780    1103    1883    485   261
 fst-flat-pre                           86     900     995    1895    251   165
-json/dsl-platform                      73     817    1096    1914    485   261
 kryo-flat-pre                          88     896    1171    2068    212   132
 protobuf                              180    1726     972    2698    239   149
 msgpack/databind                       91    1191    1841    3032    233   146
@@ -116,12 +116,12 @@ bson/jackson/databind                  85    6859    8670   15528    506   286
 <ul><li>text format based. Usually can be read by anybody. Frequently inline schema inside data.</li>
 <li>Mixed regarding required preparation, object graph awareness (references).</li>
 </ul>
-<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:801,817,1606,1278,1293,1746,2051,2284,2286,4142,6988,7486,12150,20934,25413,26226,11394,34472|1006,1097,1574,2011,2055,2182,2793,3179,3456,6961,6317,18378,16507,19641,37560,44243,73556,154128&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,188600&chxr=1,0,188600&chxt=y,x&chxl=0:|json%2Fjson-lib%2Fdatabind|json%2Fprotobuf|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|xml%2Fexi-manual|json%2Fjavax-tree%2Fglassfish|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|xml%2Fjackson%2Fdatabind|json%2Fjackson-jr%2Fdatabind|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fdsl-platform|json%2Fdsl-platform%2Fomit-defaults'/>
+<b>Ser Time+Deser Time (ns)</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:752,780,1606,1278,1293,1746,2051,2284,2286,4142,6988,7486,12150,20934,25413,26226,11394,34472|1005,1103,1574,2011,2055,2182,2793,3179,3456,6961,6317,18378,16507,19641,37560,44243,73556,154128&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,188600&chxr=1,0,188600&chxt=y,x&chxl=0:|json%2Fjson-lib%2Fdatabind|json%2Fprotobuf|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|xml%2Fexi-manual|json%2Fjavax-tree%2Fglassfish|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|xml%2Fjackson%2Fdatabind|json%2Fjackson-jr%2Fdatabind|json%2Fjackson%2Fdatabind|json%2Fprotostuff-runtime|json-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fdsl-platform|json%2Fdsl-platform%2Fomit-defaults'/>
 <br clear='all' /><b>Size, Compressed size [light] in bytes</b><br><img src='https://chart.googleapis.com/chart?cht=bhs&chs=600x374&chd=t:165,165,178,327,233,255,243,261,261,263,263,262,259,244,253,273,260,286|86,87,115,10,204,213,226,224,224,222,222,224,227,243,235,230,245,397&chco=5d99f9,4d89f9&chdlp=t&chbh=15&chds=0,683&chxr=1,0,683&chxt=y,x&chxl=0:|xml%2Fjackson%2Fdatabind|yaml%2Fjackson%2Fdatabind|json%2Fflexjson%2Fdatabind|json%2Fprotobuf|xml%2Fxstream%2Bc|json%2Fgson%2Fdatabind|json%2Ffastjson%2Fdatabind|json%2Fjson-lib%2Fdatabind|json%2Fjavax-tree%2Fglassfish|json%2Fjackson%2Fdatabind|json%2Fdsl-platform|json%2Fprotostuff-runtime|json%2Fjackson-jr%2Fdatabind|json%2Fdsl-platform%2Fomit-defaults|xml%2Fexi-manual|json-col%2Fjackson%2Fdatabind|smile-col%2Fjackson%2Fdatabind|cbor-col%2Fjackson%2Fdatabind'/>
 <br clear='all' />
 <pre>                                   create     ser   deser   total   size  +dfl
-json/dsl-platform/omit-defaults        74     801    1006    1807    437   233
-json/dsl-platform                      73     817    1096    1914    485   261
+json/dsl-platform/omit-defaults        73     752    1005    1757    437   233
+json/dsl-platform                      73     780    1103    1883    485   261
 json/fastjson/databind                 88    1606    1574    3180    486   262
 smile-col/jackson/databind             87    1278    2011    3289    252   165
 cbor-col/jackson/databind              87    1293    2055    3348    251   165
@@ -218,9 +218,9 @@ kryo-manual                            89     708     843    1551    211   131
 protostuff-manual                      87     620     948    1569    239   150
 protostuff                            117     638     968    1606    239   150
 protobuf/protostuff                   117     723     976    1699    239   149
-json/dsl-platform/omit-defaults        74     801    1006    1807    437   233
+json/dsl-platform/omit-defaults        73     752    1005    1757    437   233
+json/dsl-platform                      73     780    1103    1883    485   261
 fst-flat-pre                           86     900     995    1895    251   165
-json/dsl-platform                      73     817    1096    1914    485   261
 wobly                                  65    1165     755    1920    251   151
 java-manual                            89    1121     844    1965    255   147
 protostuff-graph                      115     941    1038    1979    239   150
@@ -306,8 +306,8 @@ protostuff-manual                  MANUAL_OPT      BINARY         FLAT_TREE  [] 
 protostuff                         CLASSES_KNOWN   BINARY         FLAT_TREE  [] generated code                                           
 protobuf/protostuff                CLASSES_KNOWN   BIN_CROSSLANG  FLAT_TREE  [] protobuf + generated code                                
 json/dsl-platform/omit-defaults    CLASSES_KNOWN   JSON           FLAT_TREE  [] Omits default values from the JSON output.               
-fst-flat-pre                       CLASSES_KNOWN   BINARY         FLAT_TREE  [] fst in unshared mode with preregistered classes          
 json/dsl-platform                  CLASSES_KNOWN   JSON           FLAT_TREE  [] Serializes all properties.                               
+fst-flat-pre                       CLASSES_KNOWN   BINARY         FLAT_TREE  [] fst in unshared mode with preregistered classes          
 wobly                              MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
 java-manual                        MANUAL_OPT      BINARY         FLAT_TREE  []                                                          
 protostuff-graph                   CLASSES_KNOWN   BINARY         FULL_GRAPH [] graph + generated code                                   
